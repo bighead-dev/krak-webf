@@ -53,23 +53,44 @@ class RouteCollectionBuilder
     /**
      * Creates a route to be added
      */
-    public function route($name, $path)
+    public function route($path)
     {
         /* was there already a route being built? */
         if ($this->route) {
             /* add the current route into the collection */
-            $this->collection->add($this->route_name, $this->route);
+            $this->collection->add($this->getRouteName(), $this->route);
         }
     
         $this->route = new Route($path);
-        $this->route_name = $name;
+        $this->route_name = null;
         
         return $this;
+    }
+    
+    /**
+     * Gets the current routes name
+     */
+    private function getRouteName()
+    {
+        static $route_counter = 0;
+        
+        if ($this->route_name) {
+            return $this->route_name;
+        }
+        
+        $msg = sprintf('route_%d', $route_counter++);
+        return sprintf('%s_%s', $msg, substr(sha1($msg), 0, 5));
     }
     
     public function defaults($defaults)
     {
         $this->route->addDefaults($defaults);
+        return $this;
+    }
+    
+    public function name($name)
+    {
+        $this->route_name = $name;
         return $this;
     }
     

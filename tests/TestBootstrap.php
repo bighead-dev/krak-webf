@@ -4,9 +4,10 @@ namespace Krak\Tests;
 
 use Krak\Webf\Application;
 use Krak\Webf\Bootstrap;
-use Krak\Webf\Routing\Router;
 use Krak\Webf\Routing\RouteCollectionBuilder;
 
+use Symfony\Component\Routing\Loader\ClosureLoader;
+use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,10 +27,12 @@ class TestBootstrap extends Bootstrap
             ->route('test2', '/test2')
                 ->action('Krak\\Tests\\TestController::test')
             ->create();
-                
-        $context = new RequestContext();
-        $context->fromRequest($request);
-        
-        return new Router($routes, $context);
+                        
+        return new Router(
+            new ClosureLoader(),
+            function() use ($routes) {
+                return $routes;
+            }
+        );
     }
 }

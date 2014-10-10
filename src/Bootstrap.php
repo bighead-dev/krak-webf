@@ -7,6 +7,8 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\Loader\PhpFileLoader;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -17,14 +19,10 @@ abstract class Bootstrap
 {
     protected function createRouter(Application $app, Request $request)
     {
-        $collection = Routing\RouteCollectionFactory::createFromFile(
+        return new Router(
+            new PhpFileLoader(),
             $app->getConfigPath() . '/routes.php'
         );
-        
-        $context = new RequestContext();
-        $context->fromRequest($request);
-        
-        return new Routing\Router($collection, $context);
     }
     
     protected function registerEventListeners(

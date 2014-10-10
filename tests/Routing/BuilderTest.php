@@ -30,10 +30,12 @@ class BuilderTest extends KrakTestCase
         $builder = new RouteCollectionBuilder();
         
         $collection = $builder
-            ->route('session_start', '/session/start')
+            ->route('/session/start')
+                ->name('session_start')
             ->create();
         
         $this->assertCount(1, $collection);
+        $this->assertTrue($collection->get('session_start') != null);
     }
     
     public function testMany()
@@ -41,9 +43,11 @@ class BuilderTest extends KrakTestCase
         $builder = new RouteCollectionBuilder();
         
         $collection = $builder
-            ->route('session_start', '/session/start')
+            ->route('/session/start')
+                ->name('session_start')
                 ->action('Acme\Controller\Session::index')
-            ->route('session_end', '/session/destroy')
+            ->route('/session/destroy')
+                ->name('session_end')
                 ->action('Acme\Controller\Session::destroy')
             ->create();
                 
