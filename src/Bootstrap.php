@@ -2,6 +2,7 @@
 
 namespace Krak\Webf;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ abstract class Bootstrap
     protected function createRouter(Application $app, Request $request)
     {
         return new Router(
-            new PhpFileLoader(),
+            new PhpFileLoader(new FileLocator()),
             $app->getConfigPath() . '/routes.php'
         );
     }
