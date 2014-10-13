@@ -1,6 +1,6 @@
 <?php
 
-namespace Krak\Tests;
+namespace Krak\Tests\Fixtures\App;
 
 use Krak\Webf\Application;
 use Krak\Webf\Bootstrap;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TestBootstrap extends Bootstrap
+class RouterTestBootstrap extends Bootstrap
 {
     const TEST_ROUTE_PATH   = '/test1';
     const TEST_ROUTE        = 'test1';
@@ -25,7 +25,7 @@ class TestBootstrap extends Bootstrap
             ->route('test1', '/test1')
                 ->action(function(){return new Response(self::TEST_RESP_CONTENT);})
             ->route('test2', '/test2')
-                ->action('Krak\\Tests\\TestController::test')
+                ->action('Krak\\Tests\\Fixtures\\App\\TestController::test')
             ->create();
                         
         return new Router(

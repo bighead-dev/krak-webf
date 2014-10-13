@@ -3,11 +3,11 @@
 namespace Krak\Tests\Routing;
 
 use Krak\Webf\Routing\RouteCollectionBuilder;
-use Krak\Tests\KrakTestCase;
+use Krak\Tests\TestCase;
 
 use Symfony\Component\Routing\RouteCollection;
 
-class BuilderTest extends KrakTestCase
+class BuilderTest extends TestCase
 {
     public function testNew()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Krak\Tests;
+namespace Krak\Tests\Fixtures\App;
 
 use Krak\Webf\AbstractApplication;
 
